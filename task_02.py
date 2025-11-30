@@ -1,9 +1,10 @@
-def coincidence(list= [], range=None):
+def coincidence(spisok= [], range=None):
 
-    if list == [] or range == None:
-        return list
+    if spisok == [] or range == None:
+        return spisok
     
     result_list = []
-    for i in range:
-        result_list.append(list[i])
+    for i in spisok:
+        if i in range:
+            result_list.append(i)
     return result_list
