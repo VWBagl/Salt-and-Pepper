@@ -23,17 +23,7 @@ class BlockTranspositionCipher:
         return [ord(let.lower()) - ord('a') for let in self.key]
 
     def _get_permutation(self):
-        indexed_key = []
-        for idx, char_value in enumerate(self.numeric_key):
-            indexed_key.append((char_value, idx)) 
-
-        sorted_indexed = sorted(indexed_key, key=lambda pair: pair[0])
-
-        permutation = []
-        for value, original_index in sorted_indexed:
-            permutation.append(original_index)
-
-        return permutation
+        return self.numeric_key
 
     def __iter__(self):
         return self._process_blocks()
@@ -55,8 +45,9 @@ class BlockTranspositionCipher:
                 decrypted_block = [''] * block_size
                 for enc_pos in range(block_size):
                     orig_pos = self.permutation[enc_pos]
-                    decrypted_block[orig_pos] = block[enc_pos]
+                    if orig_pos < block_size:
+                        decrypted_block[orig_pos] = block[enc_pos]
                 yield ''.join(decrypted_block)
             else:
-                encrypted_block = ''.join(block[i] for i in self.permutation)
+                encrypted_block = ''.join(block[i] for i in self.permutation if i < block_size)
                 yield encrypted_block

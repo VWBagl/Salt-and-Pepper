@@ -3,22 +3,15 @@ from task_11 import Dessert
 class JellyBean(Dessert):
     def __init__(self, name=None, calories=None, flavor=None):
         super().__init__(name, calories)
-        self._flavor = None
-        self.set_flavor(flavor)
-    
-    def get_flavor(self):
+        self.flavor = flavor
+
+    @property
+    def flavor(self):
         return self._flavor
-    
-    def set_flavor(self, flavor):
-        try:
-            if flavor is None:
-                self._flavor = None
-            else:
-                self._flavor = str(flavor).strip()
-        except (ValueError, TypeError):
-            self._flavor = None
-    
+
+    @flavor.setter
+    def flavor(self, value):
+        self._flavor = value
+
     def is_delicious(self):
-        if self._flavor.lower() == "black licorice":
-            return False
-        return True
+        return not (self._flavor is not None and self._flavor.lower() == "black licorice")

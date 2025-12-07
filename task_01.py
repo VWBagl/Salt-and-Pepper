@@ -1,9 +1,13 @@
 import re
 
 def is_palindrome(string):
+    if string is None:
+        return False
 
-    new_s = re.sub(r'[^a-zA-Z0-9]', '', string)
+    s = str(string)    
+    new_s = re.sub(r'[^a-zA-Z0-9]', '', s)
     new_s = new_s.lower()
+
     left = 0
     right = len(new_s)-1
 

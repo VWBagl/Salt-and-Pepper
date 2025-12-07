@@ -1,10 +1,18 @@
-def coincidence(spisok= [], range=None):
-
-    if spisok == [] or range == None:
-        return spisok
+def coincidence(spisok=None, rng=None):
+    if spisok is None or rng is None:
+        return []
     
-    result_list = []
+    try:
+        start = rng.start
+        stop = rng.stop
+    except AttributeError:
+        return []
+    
+    result = []
     for i in spisok:
-        if i in range:
-            result_list.append(i)
-    return result_list
+        try:
+            if start <= i < stop:
+                result.append(i)
+        except (TypeError, ValueError):
+            continue
+    return result
